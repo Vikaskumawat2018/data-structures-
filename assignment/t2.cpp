@@ -18,420 +18,6 @@ struct  node
 
 *head=NULL  
 ;
-    // node * convertAddToNode()
-    // {
-        
-
-    // }
-
-     void insertData(node *n1)
-    {
-        cin>>n1->data;
-    }
-
-    node *insertDataAt(node *n1=head,int num=4)
-    {
-        node *temp=new node;
-        
-        if(n1==NULL)
-        {
-            cout<<"\nERROR:linklist is empty\n";
-        }
-        else if (num==1)
-        {
-            temp->next=n1;
-            head=n1;
-        }
-        else
-        {
-            if(nodecountverify==num-1)
-            {
-                
-                cout <<"\ninserting "<<nodecountverify+1<<" node:" ;
-                insertData(temp);
-                nodecountverify=0;
-                temp->next=n1->next;
-                n1->next=temp;
-                return n1;
-            }
-            else
-            {
-                nodecountverify++;
-                n1->next=insertDataAt(n1->next,num);
-            }
-        }
-        return n1;
-    }
-
-    node * findLocAddByAdd(node* loc,node *n1=head)
-    {
-        node *back;
-        if(n1==NULL)
-        {
-            cout<<"\nERROR:linklist is empty\n";
-        }
-        else if(n1==loc)
-        {
-            back=NULL;
-        }
-        else
-        {
-            while (n1!=loc)
-            {
-                back=n1;
-                //temp=n1;
-                n1=n1->next;
-                
-            }
-            // if(n1==back)
-            // {
-            //     cout<<"\nvery bad\n";
-            // }
-
-            //temp=n1;
-        }
-        return back;
-
-    }
-
-    node * findLocBack(node* loc,node *n1=head)
-    {
-        node *back;
-        if(n1==NULL)
-        {
-            cout<<"\nERROR:linklist is empty\n";
-        }
-        else if(n1==loc)
-        {
-            back=NULL;
-        }
-        else
-        {
-            while (n1!=loc)
-            {
-                back=n1;
-                //temp=n1;
-                n1=n1->next;
-                
-            }
-            // if(n1==back)
-            // {
-            //     cout<<"\nvery bad\n";
-            // }
-
-            //temp=n1;
-        }
-        return back;
-    }
-
-    node * findLocByData(int data=4,node *n1=head)
-    {
-        node *temp;
-        if(n1==NULL)
-        {
-            cout<<"\nERROR:linklist is empty\n";
-        }
-        else
-        {
-            while (n1->data!=data && n1->next!=NULL)
-            {
-                //back=n1;
-                n1=n1->next;
-                nodecountverify++;
-            }
-            if(n1->data==data && n1!=NULL )
-            {
-                temp=n1;
-            }
-            else
-            {
-                temp=NULL;
-                cout<<"\nERROR:given data not found\n";
-            }
-        }
-        return temp;
-        
-    }
-
-    node *findLocByNumeEle(int num=4,node *n1=head)
-    {
-        node *temp;
-        if(n1==NULL)
-        {
-            cout<<"\nERROR:linklist is empty\n";
-        }
-        else
-        {
-            while (nodecountverify<num)
-            {
-                //back=n1;
-                temp=n1;
-                n1=n1->next;
-                nodecountverify++;
-            }
-            // if(n1==back)
-            // {
-            //     cout<<"\nvery bad\n";
-            // }
-
-            //temp=n1;
-        }
-        return temp;
-    }
-
-    void deleteAtFirst(node *n1=head)
-    {
-        if(head==NULL)
-        {
-            cout<<"\nERROR:no node to delete \n";
-        }
-        else if(n1->next==NULL)
-        {
-            delete n1;
-        }
-        else
-        {
-            node *temp=n1;
-            //n1=n1->next;
-            head=n1->next;
-            delete temp;
-            nodecount--;
-        }
-
-    }
-
-   
-
-    node * insertingFirstNode(node *n1=head)
-    {
-        if(n1==NULL)
-        {
-            cout<<"creating first node:";
-            //n1=new node;
-            n1=new node;
-            //node* ptr = head;
-            //insertData(ptr);
-            insertData(n1);
-            nodecount+=1;
-            head=n1;
-        }
-        else
-        {
-            cout<<"\nERROR:linklist already have a node\n";
-        }
-        return n1;
-    }
-
-    void insertAtLast(node *n1=head)
-    {
-        if(n1==NULL)
-        {
-            cout<<"\nERROR:linklist is empty\n";
-        }
-        else
-        {
-            while(n1->next!=NULL)
-            {
-                n1=n1->next;
-            }
-            n1->next=new node;
-            //n1=new node;
-            n1=n1->next;
-            insertData(n1);
-            nodecount+=1;
-        }
-    }
-
-    void deleteAtLast(node *n1=head)
-    {
-        node* temp=NULL;
-        if(n1==NULL)
-        {
-            cout<<"\nERROR:linklist is empty\n";
-        }
-        else if(n1->next==NULL)
-        {
-            delete n1;
-            nodecount-=1;
-        }
-        else
-        {
-            while(n1->next!=NULL)
-            {
-                temp=n1;
-                n1=n1->next;
-            }
-            temp->next=NULL;
-            delete n1;
-            //n1->next=new node;
-            //n1=new node;
-            nodecount-=1;
-        }
-    }
-    
-    void deleteAtMid(node *back=head)
-    {
-        node *temp=back->next;
-        back->next=temp->next;
-        //n1=n1->next;
-        
-        delete temp;
-        nodecount--;
-    }
-
-    void insertAtMid(node *n1=head)
-    {
-        n1=n1->next;
-        node *temp=n1->next;
-        n1->next=new node;
-        n1=n1->next;
-        insertData(n1);
-        n1->next=temp;
-        nodecount++;
-    }
-
-
-    void insertAfterNode(int num=4,node *n1=head)
-    {
-        if(nodecount<num)
-        {
-            cout<<"\nERROR:given node not found or given node out of bounds \n";
-        }
-        else if(num==nodecount)
-        {
-            insertAtLast();
-        }
-        else if(num<2)
-        {
-            head=insertingFirstNode();
-        }
-        else
-        {
-            node *loc=findLocByNumeEle(num);
-            if(loc!=NULL)
-            {
-                //node *loc=findLocByNumeEle(num);
-                insertAtMid(loc);
-                //insertAtMid(findLocByNumeEle(num));
-                
-            }
-            // else 
-
-            // loc=findLocByData(6);
-            // if(loc!=NULL)
-            // {
-            //     insertAtMid(loc);//findLocByData
-            // }
-        }
-    }
-
-    void deleteAfterNode(int num=4,node *n1=head)
-    {
-        if(nodecount<num)
-        {
-            cout<<"\nERROR:given node not found or given node out of bounds \n";
-        }
-        else if(num==nodecount)
-        {
-            deleteAtLast();
-        }
-
-        else
-        {
-            node *back=NULL;
-            node *loc=findLocByNumeEle(num,head);
-            if(loc!=NULL)
-            {
-                
-                // node *loc=findLocByNumeEle(num);
-                deleteAtMid(loc);
-                //insertAtMid(findLocByNumeEle(num));
-                
-            }
-            // else 
-
-            // loc=findLocByData(6);
-            // if(loc!=NULL)
-            // {
-            //     insertAtMid(loc);//findLocByData
-            // }
-        }
-    }
-
-    void insertAtFirst()
-    {
-
-    }
-
-    
-
-    //void createNode(node *n1,int num=5)
-    //void createNodes(bool flag1=true,int num=5)
-    void createNodes(int num=5,bool flag1=true)
-    {
-        int i=1;
-        head=new node;
-        node* ptr = head;
-        
-        while (i<num)
-        {
-            ptr->next=new node;
-            if(flag1)
-            {
-                ptr->data=test++;
-            }
-            else
-            {
-                //cin>>ptr->data;
-                insertData(ptr);
-            }
-            
-            ptr=ptr->next;
-            i++;
-            nodecount+=1;
-        }
-            if(flag1)
-            {
-                ptr->data=test++;
-            }
-            else
-            {
-                //cin>>ptr->data;
-                insertData(ptr);
-            }
-        //ptr->data=test++;
-        //cin>>ptr->data;
-        nodecount+=1;
-        cout<<"\n\n"<<nodecount<<" nodes created \n\n";
-    }
-
-    void freeAll(node *n1=head)
-    {
-        if(n1==NULL)
-        {
-            cout<<"\nERROR:linklist is empty\n";
-        }
-        else
-        {
-        cout<<"\n\n";
-        node *ptr=n1;
-        //node *temp=ptr->next;
-        node *temp;
-
-        while (ptr!=NULL)
-        {
-            //cout<<"freeing node where data[not dup.] is:"<<ptr->data<<"\n";
-            cout<<"freeing node["<<ptr<<"] where data is:"<<ptr->data<<"\n";
-            temp=ptr;
-            ptr=ptr->next;
-            delete temp;
-            nodecount-=1;
-        }
-        //cout<<"\n remaining nodes:"<<nodecount<<"\n";
-        }
-        
-    }
-
     void showlink(node *n1=head)
     {
         if(n1==NULL)
@@ -494,6 +80,224 @@ struct  node
         }
         //cout<<"\n\n num of node:"<<nodecount<<"\n";
    }
+
+     void insertData(node *n1,bool flag1=true)
+    {
+        if(flag1)
+        {
+            n1->data=test++;
+        }
+        else
+        {
+            cin>>n1->data;
+        }
+        
+    }
+
+    
+
+    node *deleteDataAt(node *n1=head,int num=4)
+    {
+        node *temp;
+        
+        if(n1==NULL)
+        {
+            cout<<"\nERROR:linklist is empty\n";
+        }
+        else if (num==1 && n1->next==NULL)
+        {
+            delete n1;
+            cout<<"freeing node["<<n1<<"] where data is:"<<n1->data<<"\n";
+            head=NULL;
+        }
+        else if (num==1)
+        {
+            head=n1->next;
+            delete n1;
+            cout<<"freeing node["<<n1<<"] where data is:"<<n1->data<<"\n";
+            
+        }
+        else
+        {
+            if(nodecountverify==num-1)
+            {
+                temp=n1;
+                n1=n1->next;
+                cout<<"freeing node["<<temp<<"] where data is:"<<temp->data<<"\n";
+                delete temp;
+                nodecountverify=0;
+                return n1;
+            }
+            else
+            {
+                nodecountverify++;
+                n1->next=deleteDataAt(n1->next,num);
+            }
+        }
+        return n1;
+    }
+
+    node *deleteByData(node *n1=head,int data=4)
+    {
+        node *temp;
+        
+        if(n1==NULL)
+        {
+            cout<<"\nERROR:linklist is empty\n";
+        }
+        else if (nodecountverify==0 && n1->next==NULL && n1->data==data)
+        {
+            cout<<"freeing node["<<n1<<"] where data is:"<<n1->data<<"\n";
+            delete n1;
+            head=NULL;
+        }
+        else if (nodecountverify==0 && n1->data==data)
+        {
+            head=n1->next;
+            cout<<"freeing node["<<n1<<"] where data is:"<<n1->data<<"\n";
+            delete n1;
+        }
+        else
+        {
+            if(nodecountverify>0 && n1->data==data)
+            {
+                temp=n1;
+                n1=n1->next;
+                cout<<"freeing node["<<temp<<"] where data is:"<<temp->data<<"\n";
+                delete temp;
+                nodecountverify=0;
+                return n1;
+            }
+            else
+            {
+                nodecountverify++;
+                n1->next=deleteByData(n1->next,data);
+            }
+        }
+        return n1;
+    }
+
+    node *insertDataAt(node *n1=head,int num=4,bool flag1=true)
+    {
+        node *temp=new node;
+        
+        if(n1==NULL && num==0)
+        {
+            insertData(temp);
+            head=temp;
+        }
+        else if (num==1)
+        {
+            temp->next=n1;
+            head=temp;
+            cout <<"\ninserting "<<nodecountverify+1<<" node:" ;
+            insertData(temp);
+            cout <<"\n \n \n" ;
+            nodecount+=1;
+        }
+        else
+        {
+            if(nodecountverify==num-1)
+            {
+                
+                cout <<"\ninserting "<<nodecountverify+1<<" node:" ;
+                insertData(temp);
+                nodecountverify=0;
+                temp->next=n1->next;
+                n1->next=temp;
+                nodecount+=1;
+                cout <<"\n \n \n" ;
+                return n1;
+            }
+            else
+            {
+                nodecountverify++;
+                n1->next=insertDataAt(n1->next,num);
+            }
+        }
+        return n1;
+    }
+
+    node *insertAfterData(node *n1=head,int data=4)
+    {
+        node *temp=new node;
+        
+        if(n1==NULL)
+        {
+            cout<<"\nERROR:linklist is empty\n";
+        }
+        else
+        {
+            if(n1->data=data)
+            {
+                cout <<"\ninserting "<<nodecountverify+2<<" node:" ;
+                insertData(temp);
+                nodecountverify=0;
+                temp->next=n1->next;
+                n1->next=temp;
+                nodecount+=1;
+                cout <<"\n \n \n" ;
+                return n1;
+            }
+            else
+            {
+                nodecountverify++;
+                n1->next=insertDataAt(n1->next,data);
+            }
+        }
+        return n1;
+    }
+
+    //void createNode(node *n1,int num=5)
+    //void createNodes(bool flag1=true,int num=5)
+    void createNodes(int num=5,bool flag1=true)
+    {
+        int i=1;
+        head=new node;
+        node* ptr = head;
+        
+        while (i<num)
+        {
+            ptr->next=new node;
+            insertData(ptr,flag1);
+            ptr=ptr->next;
+            i++;
+            nodecount+=1;
+        }
+        insertData(ptr,flag1);
+        nodecount+=1;
+        cout<<"\n\n"<<nodecount<<" nodes created \n\n";
+    }
+
+    void freeAll(node *n1=head)
+    {
+        if(n1==NULL)
+        {
+            cout<<"\nERROR:linklist is empty\n";
+        }
+        else
+        {
+        cout<<"\n\n";
+        node *ptr=n1;
+        //node *temp=ptr->next;
+        node *temp;
+
+        while (ptr!=NULL)
+        {
+            //cout<<"freeing node where data[not dup.] is:"<<ptr->data<<"\n";
+            cout<<"freeing node["<<ptr<<"] where data is:"<<ptr->data<<"\n";
+            temp=ptr;
+            ptr=ptr->next;
+            delete temp;
+            nodecount-=1;
+        }
+        head=NULL;
+        //cout<<"\n remaining nodes:"<<nodecount<<"\n";
+        }
+        
+    }
+
+    
 
     
 
@@ -587,6 +391,19 @@ int main(int argc, char const *argv[])
     nodecountverify=0;
     insertDataAt(head,1);
     showlink();
+    deleteDataAt(head,2);
+    showlink();
+    deleteByData(head,4);
+    showlink();
+    deleteByData(head,5);
+    //insertAfterData(head,1);
+    showlink();
+
+    //showlink();
+
+    //showlink();
+    //node *temp=0x55555556bf10;
+    //deleteAtMid(temp);
     freeAll(head);
 
 
