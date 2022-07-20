@@ -19,7 +19,39 @@ struct  node
 }
 *root=NULL  
 ;
+    void help()
+    {
+        cout<<"\n\n===========================================\n";
+        cout<<"1.)for create number of nodes\n";
+        cout<<"2.)for free all nodes\n";
+        cout<<"3.)for insert at first\n";
 
+
+
+        cout<<"===========================================\n\n";
+    }
+
+    int getTreeHeight(node *r)
+    {
+        if (r==NULL)
+        {
+            return -1;
+        }
+        else
+        {
+            int lheight=getTreeHeight(r->left);
+            int rheight=getTreeHeight(r->right);
+            if(lheight>rheight)
+            {
+                return (lheight + 1);
+            }
+            else
+            {
+                return (rheight + 1);
+            }
+        }
+        
+    }
 
     node* minValue(node *ptr2)
     {
@@ -101,7 +133,7 @@ struct  node
         return ptr;
     }
 
-    void createtree(int data,node *ptr=root)
+    /* void createtree(int data,node *ptr=root)
     {
         flag=true;
         node *temp=new node();
@@ -151,6 +183,90 @@ struct  node
         }
 
         
+    } */
+
+    int getBalanceFactor(node *ptr)
+    {
+        if (ptr==NULL)
+        {
+            return -1;
+        }
+        else
+        {
+            return (getTreeHeight(ptr->left)-getTreeHeight(ptr->right));
+        }
+        
+        
+    }
+
+    node * rightRotate(node *ptr1)
+    {
+        //temp node pointer
+        node * Node1=ptr1->left;
+        node * Node2=Node1->right;
+
+        //rotation
+        Node1->right=ptr1;
+        ptr1->left=Node2;
+        
+        return Node1;
+    }
+
+    node * leftRotate(node *ptr1)
+    {
+        //temp node pointer
+        node * Node1=ptr1->right;
+        node * Node2=Node1->left;
+
+        //rotation
+        Node1->left=ptr1;
+        ptr1->right=Node2;
+
+        return Node1;
+    }
+
+    node * createTreeNodes(node *ptr,node *temp)
+    {
+        
+        if (ptr==NULL)
+        {
+            return temp;
+        }
+        if (temp->data<ptr->data)
+        {
+            ptr->left=createTreeNodes(ptr->left,temp);
+        }
+        else if (temp->data>ptr->data)
+        {
+            ptr->right=createTreeNodes(ptr->right,temp);
+        }
+        else
+        {
+            cout << "\nduplicate values not allowed\n";
+            return ptr;
+        }
+        int bf=getBalanceFactor(ptr);
+        if (bf>1 && temp->data < ptr->left->data)
+        {
+            return rightRotate(ptr);
+        }
+        if (bf<-1 && temp->data > ptr->right->data)
+        {
+            return leftRotate(ptr);
+        }
+        if (bf>1 && temp->data > ptr->left->data)
+        {
+            ptr->left=leftRotate(ptr->left);
+            return rightRotate(ptr);
+        }
+        if (bf<-1 && temp->data < ptr->right->data)
+        {
+            ptr->right=leftRotate(ptr->right);
+            return leftRotate(ptr);
+        }
+
+        return ptr;
+                
     }
 
     void print2D( node* r, int space) {
@@ -167,46 +283,46 @@ struct  node
 
     void freetree(node *ptr=root)
     {
+        int i=0;
         //node *tempRoot=ptr;
-        if (ptr->left!=NULL)
+        if (ptr==NULL && i==0)
         {
-            freetree(ptr->left);
+            cout<<"\ntree don't have any node\n";
+
         }
-        if (ptr->right!=NULL)
+        else
         {
-            freetree(ptr->right);
+            if (ptr->left!=NULL)
+            {
+                freetree(ptr->left);
+            }
+            if (ptr->right!=NULL)
+            {
+                freetree(ptr->right);
+            }
+            cout<<"\nfreeing node["<<ptr<<"] where data is:"<<ptr->data<<"\n";
+            delete ptr;
         }
-        cout<<"\nfreeing node["<<ptr<<"] where data is:"<<ptr->data<<"\n";
-        delete ptr;
+        
     }
 
-    void help()
+    void insert(int data)
     {
-        cout<<"\n\n===========================================\n";
-        cout<<"1.)for create number of nodes\n";
-        cout<<"2.)for free all nodes\n";
-        cout<<"3.)for insert at first\n";
-
-
-
-        cout<<"===========================================\n\n";
+        node *temp=new node();
+        temp->data=data;
+        root=createTreeNodes(root,temp);
     }
 
    /*  */
 
 int main(int argc, char const *argv[])
 {
-    createtree(10);
-    createtree(8);
-    createtree(15);
-    createtree(7);
-    createtree(9);
-    createtree(13);
-    createtree(17);
-    search(root,17);
+    insert(1);
+    insert(2);
     print2D(root,5);
-    deleteNode(root,10);
+    insert(3);
     print2D(root,5);
+    cout<<"tree hieght is:" <<  getTreeHeight(root);
     freetree(root); 
     return 0;
 }
