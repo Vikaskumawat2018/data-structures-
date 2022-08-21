@@ -48,7 +48,7 @@ public:
         }
         else
         {
-            cout<<"removing value of where arr["<<front<<"]="<<arr[front];
+            cout<<"\nremoving value of where arr["<<front<<"]="<<arr[front];
             arr[front]=0;
             front++;
         }

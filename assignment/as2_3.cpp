@@ -1,7 +1,8 @@
 #include <iostream>
 
 using namespace std;
-int arr[]={1,5,9,6,4,3,8,2,7};
+//int arr[]={1,5,9,6,4,3,8,2,7};
+int arr[]={44,33,11,55,77,90,40,60,22};
 int size1 = sizeof(arr)/sizeof(arr[0]);
 //int size1=10;
 int size2 = *(&arr + 1) - arr;
@@ -25,6 +26,7 @@ class quick_sort
 
     int partition(int arr[],int low,int high)
     {
+        int pivoat=arr[high];
         int in=high;
         int i=low-1;
         for(int j=low;j<high;j++)
@@ -37,6 +39,7 @@ class quick_sort
         }
         i++;
         swap(arr[i],arr[in]);
+        print(arr);
         return i;
     }
 

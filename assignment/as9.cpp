@@ -2,7 +2,7 @@
 //#include <ios>
 #include<iostream>
 using namespace std;
-
+#define SPACE 10
 
 static int nodecount=0,nodecountverify=0,test=1;
 static bool dry_run=true;
@@ -151,22 +151,39 @@ struct  node
         cout<<"===========================================\n\n";
     }
 
+    void print2D(node *r, int space)
+{
+    if (r == NULL) // Base case  1
+        return;
+    space += SPACE;           // Increase distance between levels   2
+    print2D(r->right, space); // Process right child first 3
+    cout << endl;
+    for (int i = SPACE; i < space; i++) // 5
+        cout << " ";                    // 5.1
+    cout << r->data << "\n";            // 6
+    print2D(r->left, space);            // Process left child  7
+}
+
    /*  */
 
 int main(int argc, char const *argv[])
 {
-    createtree(10);
-    createtree(8);
-    createtree(15);
+    createtree(23);
     createtree(7);
-    createtree(9);
-    createtree(13);
-    createtree(17);
+    createtree(92);
+    createtree(6);
+    createtree(12);
+    createtree(14);
+    createtree(40);
+    createtree(44);
+    createtree(20);
+    createtree(21);
+    print2D(root,5);
     cout << "\n\ninOrder traverce :";
-    preOrder();
+    inOrder();
     cout << "\n\n";
     cout << "\n\npreOrder traverce :";
-    inOrder();
+    preOrder();
     cout << "\n\n";
     cout << "\n\npostOrder traverce :";
     postOrder();
